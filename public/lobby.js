@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
      MÚSICA
   ================================ */
 
-  let musicEnabled = localStorage.getItem("musicEnabled") !== "false";
-  let currentVolume = parseFloat(localStorage.getItem("musicVolume")) || 0.2;
+  let musicEnabled = sessionStorage.getItem("musicEnabled") !== "false";
+  let currentVolume = parseFloat(sessionStorage.getItem("musicVolume")) || 0.2;
 
   if (bgMusic) {
     bgMusic.volume = currentVolume;
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (musicToggle) {
     musicToggle.addEventListener("click", () => {
       musicEnabled = !musicEnabled;
-      localStorage.setItem("musicEnabled", musicEnabled);
+      sessionStorage.setItem("musicEnabled", musicEnabled);
 
       if (!bgMusic) return;
 
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     volumeSlider.addEventListener("input", (e) => {
       currentVolume = parseFloat(e.target.value);
       bgMusic.volume = currentVolume;
-      localStorage.setItem("musicVolume", currentVolume);
+      sessionStorage.setItem("musicVolume", currentVolume);
     });
   }
 
@@ -266,8 +266,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ================================ */
 
   socket.on("roomCreated", (roomCode) => {
-    localStorage.setItem("playerName", nicknameInput.value);
-    localStorage.setItem("playerRole", roleSelect.value);
+    sessionStorage.setItem("playerName", nicknameInput.value);
+    sessionStorage.setItem("playerRole", roleSelect.value);
 
     window.location.href =
       deviceMode === "mobile"
@@ -276,8 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   socket.on("roomJoined", (roomCode) => {
-    localStorage.setItem("playerName", nicknameInput.value);
-    localStorage.setItem("playerRole", roleSelect.value);
+    sessionStorage.setItem("playerName", nicknameInput.value);
+    sessionStorage.setItem("playerRole", roleSelect.value);
 
     window.location.href =
       deviceMode === "mobile"

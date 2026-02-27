@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+  document.getElementById("createRoomBtn")
+    ?.addEventListener("click", createRoom);
+
+  document.getElementById("joinRoomBtn")
+    ?.addEventListener("click", joinRoom);
+
+
+
 const deviceMode = sessionStorage.getItem("deviceMode");
 
 if(!deviceMode){
@@ -5,8 +15,8 @@ if(!deviceMode){
 }
 
 let bgMusic = document.getElementById("bgMusic");
-let musicEnabled = localStorage.getItem("musicEnabled") !== "false";
-let currentVolume = parseFloat(localStorage.getItem("musicVolume")) || 0.2;
+let musicEnabled = sessionStorage.getItem("musicEnabled") !== "false";
+let currentVolume = parseFloat(sessionStorage.getItem("musicVolume")) || 0.2;
 
 bgMusic.volume = currentVolume;
 
@@ -21,7 +31,7 @@ document.getElementById("musicToggleLobby")
 
     musicEnabled = !musicEnabled;
 
-    localStorage.setItem("musicEnabled", musicEnabled);
+    sessionStorage.setItem("musicEnabled", musicEnabled);
 
     if(musicEnabled){
       bgMusic.play();
@@ -37,7 +47,7 @@ document.getElementById("volumeSliderLobby")
   .addEventListener("input", (e)=>{
     currentVolume = parseFloat(e.target.value);
     bgMusic.volume = currentVolume;
-    localStorage.setItem("musicVolume", currentVolume);
+    sessionStorage.setItem("musicVolume", currentVolume);
 });
 
 
@@ -52,10 +62,10 @@ socket.on("roomCreated",(roomCode)=>{
   const name = document.getElementById("nickname").value;
   const role = document.getElementById("role").value;
 
-  localStorage.setItem("playerName",name);
-  localStorage.setItem("playerRole",role);
+  sessionStorage.setItem("playerName",name);
+  sessionStorage.setItem("playerRole",role);
 
-  const mode = localStorage.getItem("deviceMode") || "desktop";
+  const mode = sessionStorage.getItem("deviceMode") || "desktop";
 
   if(mode === "mobile"){
     window.location.href = `/index-mobile.html?room=${roomCode}`;
@@ -69,10 +79,10 @@ socket.on("roomJoined",(roomCode)=>{
   const name = document.getElementById("nickname").value;
   const role = document.getElementById("role").value;
 
-  localStorage.setItem("playerName", name);
-  localStorage.setItem("playerRole", role);
+  sessionStorage.setItem("playerName", name);
+  sessionStorage.setItem("playerRole", role);
 
-  const mode = localStorage.getItem("deviceMode") || "desktop";
+  const mode = sessionStorage.getItem("deviceMode") || "desktop";
 
   if(mode === "mobile"){
     window.location.href = `/index-mobile.html?room=${roomCode}`;
@@ -274,13 +284,5 @@ if(fullscreenLobbyBtn){
   });
 
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  document.getElementById("createRoomBtn")
-    ?.addEventListener("click", createRoom);
-
-  document.getElementById("joinRoomBtn")
-    ?.addEventListener("click", joinRoom);
 
 });
