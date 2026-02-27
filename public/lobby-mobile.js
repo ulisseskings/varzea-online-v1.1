@@ -1,10 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  document.getElementById("createRoomBtn")
-    ?.addEventListener("click", createRoom);
 
-  document.getElementById("joinRoomBtn")
-    ?.addEventListener("click", joinRoom);
 
 
 
@@ -261,6 +257,12 @@ function joinRoom(){
     role,
     roomCode
   });
+
+    document.getElementById("createRoomBtn")
+    ?.addEventListener("click", createRoom);
+
+  document.getElementById("joinRoomBtn")
+    ?.addEventListener("click", joinRoom);
 
 }
 const fullscreenLobbyBtn = document.getElementById("fullscreenLobbyBtn");
